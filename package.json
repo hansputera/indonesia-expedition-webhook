@@ -11,5 +11,9 @@
 	"devDependencies": {
 		"typescript": "^5.5.2",
 		"wrangler": "^4.28.0"
+	},
+	"dependencies": {
+		"arktype": "^2.1.20",
+		"axios": "^1.11.0"
 	}
 }
