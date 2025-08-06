@@ -8,6 +8,5 @@ export const sha256Hash = async <T>(data: T): Promise<string> => {
         (b) => b.toString(16).padStart(2, '0')
     ).join('');
 
-
     return hashHex;
 }
