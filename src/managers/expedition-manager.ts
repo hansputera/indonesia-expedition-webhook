@@ -37,12 +37,12 @@ export class ExpeditionManager
     public async fetch(name: string, receiptNo: string): Promise<ExpeditionResult | undefined>
     {
         const expedition = this.expeditions.get(name);
-        if (!expedition?.isMaintenance)
+        if (expedition?.isMaintenance)
         {
             return undefined;
         }
 
-        return expedition.fetch(receiptNo);
+        return expedition?.fetch(receiptNo);
     }
 
     public async dumpAllWebhook(): Promise<Array<Webhook>>

@@ -18,7 +18,7 @@ export const handleApi = async (req: Request<unknown, IncomingRequestCfPropertie
 
         if (url.pathname === '/webhooks' && req.method === 'POST')
         {
-            const data = jsonParse(await req.json());
+            const data = jsonParse(await req.text());
             if (data instanceof type.errors)
             {
                 return Response.json({
