@@ -11,4 +11,4 @@ It provides real‑time status updates from local shipping providers, normalizes
 
 ## 🛠️ Stack
 - Node.js + TypeScript
-- Lightweight web server (Express or Cloudflare Workers)
+- Lightweight web server (Pure Cloudflare Workers)
