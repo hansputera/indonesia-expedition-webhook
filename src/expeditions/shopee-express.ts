@@ -1,5 +1,7 @@
+import { type } from "arktype";
 import { ExpeditionAbstract } from "../abstracts/expedition-abstract";
-import { ExpeditionResult } from "../types/abstracts";
+import { webhookArk } from "../api/arks/webhook-ark";
+import type { ExpeditionResult } from "../types/abstracts";
 
 export class ShopeeExpressSPX extends ExpeditionAbstract
 {
@@ -55,5 +57,15 @@ export class ShopeeExpressSPX extends ExpeditionAbstract
             // Assume the order doesnt exist on SPX database
             return undefined;
         }
+    }
+
+    public async validate<T>(data: T): Promise<string | undefined> {
+        const results = webhookArk(data);
+        if (results instanceof type.errors)
+        {
+            return results.summary;
+        }
+
+        return undefined;
     }
 }
