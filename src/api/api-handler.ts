@@ -16,8 +16,10 @@ export const handleApi = async (req: Request<unknown, IncomingRequestCfPropertie
 
         const url = new URL(req.url);
 
-        if (url.pathname === '/webhooks' && req.method === 'POST')
+        if (url.pathname.startsWith('/webhook') && req.method === 'POST')
         {
+            const cleanPathnameWithoutWebhook = url.pathname.replace('/webhook/', '').trim();
+
             const data = jsonParse(await req.text());
             if (data instanceof type.errors)
             {
@@ -28,21 +30,21 @@ export const handleApi = async (req: Request<unknown, IncomingRequestCfPropertie
                 });
             }
 
-            const payload = webhookArk(data);
-            if (payload instanceof type.errors)
+            const payloadError = await expeditionManager.validatePayload(cleanPathnameWithoutWebhook, data);
+            if (payloadError)
             {
                 return Response.json({
-                    error: payload.summary,
+                    error: payloadError,
                 }, {
                     status: 400,
                 });
             }
 
-            const successfulyAddedWebhook = await addWebhook(env, payload);
+            const successfulyAddedWebhook = await addWebhook(env, data as typeof webhookArk.infer);
             return Response.json({
                 data: {
                     success: successfulyAddedWebhook,
-                    payload,
+                    payload: data,
                 },
             });
         }

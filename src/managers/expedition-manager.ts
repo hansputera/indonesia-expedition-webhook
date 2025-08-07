@@ -45,6 +45,23 @@ export class ExpeditionManager
         return expedition?.fetch(receiptNo);
     }
 
+    /**
+     * Validate requested payload with specified expedition service
+     * @param name Expedition service name (e.g. SPX, JNT, or FirstLogistic)
+     * @param data Requested payload want to validate (in object)
+     * @return {Promise<string | undefined>} Return summaries of ArkError or undefined if it's valid condition
+     */
+    public async validatePayload<T>(name: string, data: T): Promise<string | undefined>
+    {
+        const expedition = this.expeditions.get(name);
+        if (expedition?.isMaintenance)
+        {
+            return undefined;
+        }
+
+        return expedition?.validate(data);
+    }
+
     public async dumpAllWebhook(): Promise<Array<Webhook>>
     {
         const data = await this.env.DB.prepare('SELECT * FROM webhooks WHERE isactive = 1').bind().run<Webhook>();
