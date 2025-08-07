@@ -27,4 +27,11 @@ export abstract class ExpeditionAbstract
      * @return {Promise<ExpeditionResult | undefined>} Return promised of expedition results or undefined if the receipt doesnt exist
      */
     public abstract fetch(receiptNumber: string): Promise<ExpeditionResult | undefined>;
+
+    /**
+     * Validate requested payload
+     * @param data Payload want to validated
+     * @return {Promise<string | undefined>} Return message of string or undefined if it's valid
+     */
+    public abstract validate<T>(data: T): Promise<string | undefined>;
 }
