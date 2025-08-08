@@ -56,12 +56,17 @@ export class ExpeditionManager
     public async validatePayload<T>(name: string, data: T): Promise<string | undefined>
     {
         const expedition = this.expeditions.get(name);
-        if (expedition?.isMaintenance)
+        if (!expedition)
         {
-            return undefined;
+            return 'Expedition doesnt exist';
         }
 
-        return expedition?.validate(data);
+        if (expedition.isMaintenance)
+        {
+            return 'This expedition maintenace';
+        }
+
+        return expedition.validate(data);
     }
 
     public async dumpAllWebhook(): Promise<Array<Webhook>>

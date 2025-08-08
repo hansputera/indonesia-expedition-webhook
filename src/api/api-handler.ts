@@ -15,10 +15,9 @@ export const handleApi = async (req: Request<unknown, IncomingRequestCfPropertie
         }
 
         const url = new URL(req.url);
-
-        if (url.pathname.startsWith('/webhook') && req.method === 'POST')
+        if (url.pathname.startsWith('/webhooks') && req.method === 'POST')
         {
-            const cleanPathnameWithoutWebhook = url.pathname.replace('/webhook/', '').trim();
+            const cleanPathnameWithoutWebhook = url.pathname.replace(/\/webhooks(\/)?/gi, '').trim();
 
             const data = jsonParse(await req.text());
             if (data instanceof type.errors)
