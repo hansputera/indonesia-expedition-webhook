@@ -8,5 +8,6 @@ CREATE TABLE IF NOT EXISTS webhooks (
     expedition VARCHAR(50) NOT NULL,
     receiptno VARCHAR(255) UNIQUE NOT NULL,
     isactive TINYINT(1) DEFAULT '1',
-    lasthash TEXT
+    lasthash TEXT,
+    additionalargs TEXT
 );
