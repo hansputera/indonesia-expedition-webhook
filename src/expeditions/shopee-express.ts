@@ -3,7 +3,7 @@ import { ExpeditionAbstract } from "../abstracts/expedition-abstract";
 import { webhookArk } from "../api/arks/webhook-ark";
 import type { ExpeditionResult } from "../types/abstracts";
 
-export class ShopeeExpressSPX extends ExpeditionAbstract
+export class ShopeeExpressSPX extends ExpeditionAbstract<typeof webhookArk.infer>
 {
     /**
      * Initialize Shopee Express (SPX) expedition service

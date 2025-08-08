@@ -5,7 +5,7 @@ import { ExpeditionResult } from '../types/abstracts';
  * @class ExpeditionAbstract
  * Create expedition class template
  */
-export abstract class ExpeditionAbstract
+export abstract class ExpeditionAbstract<V>
 {
     /**
      * @constructor Expedition Constructor
@@ -26,7 +26,7 @@ export abstract class ExpeditionAbstract
      * @param receiptNumber Expedition receipt number (e.g. SPX0000000)
      * @return {Promise<ExpeditionResult | undefined>} Return promised of expedition results or undefined if the receipt doesnt exist
      */
-    public abstract fetch(receiptNumber: string): Promise<ExpeditionResult | undefined>;
+    public abstract fetch(receiptNumber: string, args: V): Promise<ExpeditionResult | undefined>;
 
     /**
      * Validate requested payload
