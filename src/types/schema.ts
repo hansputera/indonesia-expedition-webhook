@@ -24,4 +24,9 @@ export type Webhook = {
      * Last hash update
      */
     lasthash?: string;
+
+    /**
+     * Additional args
+     */
+    additionalargs?: string;
 }

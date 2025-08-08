@@ -21,7 +21,7 @@ export default {
 		const webhooks = await expeditionManager.dumpAllWebhook();
 		for (const webhook of webhooks)
 		{
-			const result = await expeditionManager.fetch(webhook.expedition, webhook.receiptno);
+			const result = await expeditionManager.fetch(webhook.expedition, webhook.receiptno, webhook.additionalargs ? JSON.parse(webhook.additionalargs) : {});
 			if (!result) {
 				console.log(`Webhook ${webhook.url} removed, because we cant fetch the expedition number`);
 				await removeWebhook(env, webhook.id);
