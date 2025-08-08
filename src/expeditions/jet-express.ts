@@ -1,15 +1,10 @@
 import { type } from "arktype";
 import { ExpeditionAbstract } from "../abstracts/expedition-abstract";
-import { jetValidatorWebhookArk, webhookArk } from "../api/arks/webhook-ark";
+import { jetValidatorWebhookArk } from "../api/arks/webhook-ark";
 import { ExpeditionResult } from "../types/abstracts";
 
 export class JetExpress extends ExpeditionAbstract<typeof jetValidatorWebhookArk.infer>
 {
-    protected jetValidator = type({
-        '...': webhookArk,
-        waybill: 'string.numeric',
-    });
-
     constructor()
     {
         super('https://jet.co.id', false);
@@ -61,7 +56,7 @@ export class JetExpress extends ExpeditionAbstract<typeof jetValidatorWebhookArk
     }
 
     public async validate<T>(data: T): Promise<string | undefined> {
-        const results = this.jetValidator(data);
+        const results = jetValidatorWebhookArk(data);
         if (results instanceof type.errors)
         {
             return results.summary;
