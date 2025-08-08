@@ -1,8 +1,16 @@
 import { CloudflareEnv } from "../types/env";
 import { webhookArk } from "../api/arks/webhook-ark";
+import { sentWebhook } from "./sentWebhook";
 
 export const addWebhook = async (env: CloudflareEnv, payload: typeof webhookArk.infer) => {
     try {
+        // Check if webhook.url is accessable
+        const sentWebhookTested = await sentWebhook(payload.url, JSON.stringify({ message: 'Testing' }));
+        if (!sentWebhookTested)
+        {
+            return false;
+        }
+        
         // Copy payload
         const payloadSaved = payload;
 
